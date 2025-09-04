@@ -4,66 +4,65 @@ using Toggle.Net.Configuration;
 using Toggle.Net.Providers.TextFile;
 using Toggle.Net.Tests.Stubs;
 
-namespace Toggle.Net.Tests.TextFile
-{
-    public class AllowedFeaturesTest
-    {
-        [Test]
-        public void ThrowIfUnknownFeature()
-        {
-            var content = new[]
-            {
-                "someflag=true"
-            };
-            Assert.Throws<IncorrectTextFileException>(() =>
-                    new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-                    {
-                        AllowedFeatures = new[]{"someflag2"}
-                    }).Create()
-                ).ToString()
-                .Should().Contain(string.Format(FileParser.NotAllowedFeature, "someflag"));
-        }
+namespace Toggle.Net.Tests.TextFile;
 
-        [Test]
-        public void ShouldAllowFeatureIfExistInCollection()
+public class AllowedFeaturesTest
+{
+    [Test]
+    public void ThrowIfUnknownFeature()
+    {
+        var content = new[]
         {
-            var content = new[]
-            {
-                "someflag1=false"
-            };
-            new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
+            "someflag=true"
+        };
+        Assert.Throws<IncorrectTextFileException>(() =>
+                new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
+                {
+                    AllowedFeatures = new[]{"someflag2"}
+                }).Create()
+            ).ToString()
+            .Should().Contain(string.Format(FileParser.NotAllowedFeature, "someflag"));
+    }
+
+    [Test]
+    public void ShouldAllowFeatureIfExistInCollection()
+    {
+        var content = new[]
+        {
+            "someflag1=false"
+        };
+        new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
             {
                 AllowedFeatures = new[]{"someflag1", "someflag2"}
             }).Create().IsEnabled("someflag1")
-                .Should().Be.False();
-        }
+            .Should().Be.False();
+    }
         
-        [Test]
-        public void ShouldNotCareAboutCasing()
+    [Test]
+    public void ShouldNotCareAboutCasing()
+    {
+        var content = new[]
         {
-            var content = new[]
+            "someflag=true"
+        };
+        new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
             {
-                "someflag=true"
-            };
-            new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-                {
-                    AllowedFeatures = new[]{"SoMeFLag"}
-                }).Create().IsEnabled("someflag")
-                .Should().Be.True();
-        }
+                AllowedFeatures = new[]{"SoMeFLag"}
+            }).Create().IsEnabled("someflag")
+            .Should().Be.True();
+    }
 
-        [Test]
-        public void ShouldNotCareAboutSpaces()
+    [Test]
+    public void ShouldNotCareAboutSpaces()
+    {
+        var content = new[]
         {
-            var content = new[]
+            "someflag=true"
+        };
+        new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
             {
-                "someflag=true"
-            };
-            new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-                {
-                    AllowedFeatures = new[]{"                someflag          "}
-                }).Create().IsEnabled("someflag")
-                .Should().Be.True();
-        }
+                AllowedFeatures = new[]{"                someflag          "}
+            }).Create().IsEnabled("someflag")
+            .Should().Be.True();
     }
 }

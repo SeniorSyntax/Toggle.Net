@@ -6,66 +6,65 @@ using Toggle.Net.Providers.TextFile;
 using Toggle.Net.Specifications;
 using Toggle.Net.Tests.Stubs;
 
-namespace Toggle.Net.Tests.TextFile
+namespace Toggle.Net.Tests.TextFile;
+
+public class RegExTest
 {
-	public class RegExTest
+	[Test]
+	public void ShouldHandleMatch()
 	{
-		[Test]
-		public void ShouldHandleMatch()
+		const string wordToMatch = "the toggle";
+
+		var content = new[]
 		{
-			const string wordToMatch = "the toggle";
+			"sometoggle=myRegex",
+			"sometoggle.myRegex.pattern=" + wordToMatch
+		};
+		var mappings = new DefaultSpecificationMappings();
+		mappings.AddMapping("myRegex", new RegExSpecification(new Regex("^" + wordToMatch + "$")));
 
-			var content = new[]
-			{
-				"sometoggle=myRegex",
-				"sometoggle.myRegex.pattern=" + wordToMatch
-			};
-			var mappings = new DefaultSpecificationMappings();
-			mappings.AddMapping("myRegex", new RegExSpecification(new Regex("^" + wordToMatch + "$")));
+		var toggleChecker = new ToggleConfiguration(new FileParser(new FileReaderStub(content), mappings))
+			.Create();
 
-			var toggleChecker = new ToggleConfiguration(new FileParser(new FileReaderStub(content), mappings))
-				.Create();
+		toggleChecker.IsEnabled("sometoggle")
+			.Should().Be.True();
+	}
 
-			toggleChecker.IsEnabled("sometoggle")
-				.Should().Be.True();
-		}
+	[Test]
+	public void ShouldHandleMiss()
+	{
+		const string wordToMatch = "the toggle";
 
-		[Test]
-		public void ShouldHandleMiss()
+		var content = new[]
 		{
-			const string wordToMatch = "the toggle";
+			"sometoggle=myRegex",
+			"sometoggle.myRegex.pattern=" + wordToMatch
+		};
+		var mappings = new DefaultSpecificationMappings();
+		mappings.AddMapping("myRegex", new RegExSpecification(new Regex("^somethingelse$")));
 
-			var content = new[]
-			{
-				"sometoggle=myRegex",
-				"sometoggle.myRegex.pattern=" + wordToMatch
-			};
-			var mappings = new DefaultSpecificationMappings();
-			mappings.AddMapping("myRegex", new RegExSpecification(new Regex("^somethingelse$")));
+		var toggleChecker = new ToggleConfiguration(new FileParser(new FileReaderStub(content), mappings))
+			.Create();
 
-			var toggleChecker = new ToggleConfiguration(new FileParser(new FileReaderStub(content), mappings))
-				.Create();
+		toggleChecker.IsEnabled("sometoggle")
+			.Should().Be.False();
+	}
 
-			toggleChecker.IsEnabled("sometoggle")
-				.Should().Be.False();
-		}
+	[Test]
+	public void ShouldThrowIfRegExIsMissing()
+	{
+		const string wordToMatch = "the toggle";
 
-		[Test]
-		public void ShouldThrowIfRegExIsMissing()
+		var content = new[]
 		{
-			const string wordToMatch = "the toggle";
+			"sometoggle=myRegex"
+		};
+		var mappings = new DefaultSpecificationMappings();
+		mappings.AddMapping("myRegex", new RegExSpecification(new Regex("^" + wordToMatch + "$")));
 
-			var content = new[]
-			{
-				"sometoggle=myRegex"
-			};
-			var mappings = new DefaultSpecificationMappings();
-			mappings.AddMapping("myRegex", new RegExSpecification(new Regex("^" + wordToMatch + "$")));
-
-			Assert.Throws<IncorrectTextFileException>(() => 
+		Assert.Throws<IncorrectTextFileException>(() => 
 				new ToggleConfiguration(new FileParser(new FileReaderStub(content), mappings))
-				.Create()).ToString()
+					.Create()).ToString()
 			.Should().Contain(string.Format(RegExSpecification.MustDeclareRegexPattern, "sometoggle"));
-		}
 	}
 }

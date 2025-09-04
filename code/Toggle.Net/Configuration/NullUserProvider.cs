@@ -1,10 +1,9 @@
-﻿namespace Toggle.Net.Configuration
+﻿namespace Toggle.Net.Configuration;
+
+public class NullUserProvider : IUserProvider
 {
-	public class NullUserProvider : IUserProvider
+	public string CurrentUser()
 	{
-		public string CurrentUser()
-		{
-			return string.Empty;
-		}
+		return string.Empty;
 	}
 }

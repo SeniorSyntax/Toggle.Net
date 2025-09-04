@@ -1,7 +1,6 @@
-﻿namespace Toggle.Net.Providers.TextFile
+﻿namespace Toggle.Net.Providers.TextFile;
+
+public interface IFileReader
 {
-	public interface IFileReader
-	{
-		string[] Content();
-	}
+	string[] Content();
 }

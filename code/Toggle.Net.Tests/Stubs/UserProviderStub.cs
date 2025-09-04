@@ -1,19 +1,18 @@
 ﻿using Toggle.Net.Configuration;
 
-namespace Toggle.Net.Tests.Stubs
+namespace Toggle.Net.Tests.Stubs;
+
+public class UserProviderStub : IUserProvider
 {
-	public class UserProviderStub : IUserProvider
+	private readonly string _currentUser;
+
+	public UserProviderStub(string currentUser)
 	{
-		private readonly string _currentUser;
+		_currentUser = currentUser;
+	}
 
-		public UserProviderStub(string currentUser)
-		{
-			_currentUser = currentUser;
-		}
-
-		public string CurrentUser()
-		{
-			return _currentUser;
-		}
+	public string CurrentUser()
+	{
+		return _currentUser;
 	}
 }
