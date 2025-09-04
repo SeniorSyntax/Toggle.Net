@@ -2,17 +2,10 @@
 
 namespace Toggle.Net.Tests.Stubs;
 
-public class UserProviderStub : IUserProvider
+public class UserProviderStub(string currentUser) : IUserProvider
 {
-	private readonly string _currentUser;
-
-	public UserProviderStub(string currentUser)
-	{
-		_currentUser = currentUser;
-	}
-
 	public string CurrentUser()
 	{
-		return _currentUser;
+		return currentUser;
 	}
 }

@@ -5,7 +5,7 @@ namespace Toggle.Net.Tests.Stubs;
 
 public class UserProviderRandom : IUserProvider
 {
-	private readonly Random random = new Random();
+	private readonly Random random = new();
 
 	public string CurrentUser()
 	{

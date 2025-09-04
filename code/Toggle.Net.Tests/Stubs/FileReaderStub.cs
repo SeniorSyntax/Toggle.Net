@@ -2,17 +2,10 @@
 
 namespace Toggle.Net.Tests.Stubs;
 
-public class FileReaderStub : IFileReader
+public class FileReaderStub(string[] content) : IFileReader
 {
-	private readonly string[] _content;
-
-	public FileReaderStub(string[] content)
-	{
-		_content = content;
-	}
-
 	public string[] Content()
 	{
-		return _content;
+		return content;
 	}
 }

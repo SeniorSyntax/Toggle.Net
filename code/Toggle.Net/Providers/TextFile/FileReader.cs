@@ -2,17 +2,10 @@
 
 namespace Toggle.Net.Providers.TextFile;
 
-public class FileReader : IFileReader
+public class FileReader(string path) : IFileReader
 {
-	private readonly string _path;
-
-	public FileReader(string path)
-	{
-		_path = path;
-	}
-
 	public string[] Content()
 	{
-		return File.ReadAllLines(_path);
+		return File.ReadAllLines(path);
 	}
 }

@@ -7,18 +7,14 @@ namespace Toggle.Net.Providers.TextFile;
 
 public class DefaultSpecificationMappings : ISpecificationMappings
 {
-	private readonly IDictionary<string, IToggleSpecification> _mappings;
-
-	public DefaultSpecificationMappings()
+	private readonly IDictionary<string, IToggleSpecification> _mappings = 
+		new Dictionary<string, IToggleSpecification>(StringComparer.OrdinalIgnoreCase)
 	{
-		_mappings = new Dictionary<string, IToggleSpecification>(StringComparer.OrdinalIgnoreCase)
-		{
-			["true"] = new BoolSpecification(true),
-			["false"] = new BoolSpecification(false),
-			["user"] = new UserSpecification(),
-			["random"] = new RandomSpecification()
-		};
-	}
+		["true"] = new BoolSpecification(true),
+		["false"] = new BoolSpecification(false),
+		["user"] = new UserSpecification(),
+		["random"] = new RandomSpecification()
+	};
 
 	public IDictionary<string, IToggleSpecification> NameSpecificationMappings()
 	{
