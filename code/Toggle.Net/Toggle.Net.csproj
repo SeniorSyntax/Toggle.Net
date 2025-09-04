@@ -11,6 +11,7 @@
     <Version>2.3.0$(GITHUB_RUN_NUMBER)</Version>
     
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     <AssemblyOriginatorKeyFile>toggle.net.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
