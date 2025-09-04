@@ -48,7 +48,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 	public IFeatureProvider Create()
 	{
 		var exOutput = new StringBuilder();
-		var featureSettings = parseFile(specificationMappings.NameSpecificationMappings(), exOutput);
+		var featureSettings = parseFile(exOutput);
 		foreach (var feature in featureSettings)
 		{
 			try
@@ -65,7 +65,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		return new StaticFeatureProvider(featureSettings);
 	}
 
-	private IDictionary<string, Feature> parseFile(IDictionary<string, IToggleSpecification> specificationMappings, StringBuilder exOutput)
+	private IDictionary<string, Feature> parseFile(StringBuilder exOutput)
 	{
 		var readFeatures = new Dictionary<string, Feature>(StringComparer.OrdinalIgnoreCase);
 		var content = fileReader.Content();
@@ -86,7 +86,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 					break;
 				case 2:
 					var rightOfEqualSign = splitByEqualSign[1].Trim();
-					parseRow(readFeatures, specificationMappings, leftOfEqualSign, rightOfEqualSign, rowNumber, exOutput);
+					parseRow(readFeatures, leftOfEqualSign, rightOfEqualSign, rowNumber, exOutput);
 					break;
 				default:
 					exOutput.AppendLine(string.Format(MustOnlyContainOneEqualSign, rowNumber));
@@ -97,7 +97,6 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 	}
 
 	private void parseRow(IDictionary<string, Feature> readFeatures,
-		IDictionary<string, IToggleSpecification> specificationMappings,
 		string leftOfEqualSign, 
 		string rightOfEqualSign, 
 		int rowNumber, 
@@ -113,7 +112,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 				toggleName = leftOfEqualSign;
 				specificationName = rightOfEqualSign;
 
-				addSpecificationToFeature(readFeatures, specificationMappings, rowNumber, exOutput, specificationName, toggleName);
+				addSpecificationToFeature(readFeatures, rowNumber, exOutput, specificationName, toggleName);
 				break;
 			case 3:
 				toggleName = splitLeftByDots[0];
@@ -124,9 +123,9 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 				{
 					if (!readFeatures.TryGetValue(toggleName, out var feature))
 					{
-						feature = addSpecificationToFeature(readFeatures, specificationMappings, rowNumber, exOutput, specificationName, toggleName);
+						feature = addSpecificationToFeature(readFeatures, rowNumber, exOutput, specificationName, toggleName);
 					}
-					feature?.AddParameter(specificationMappings[specificationName], paramName, paramValue);
+					feature?.AddParameter(specificationMappings.GetSpecification(specificationName), paramName, paramValue);
 				}
 				catch (ArgumentException)
 				{
@@ -139,12 +138,13 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		}
 	}
 
-	private Feature addSpecificationToFeature(IDictionary<string, Feature> readFeatures, IDictionary<string, IToggleSpecification> specificationMappings, int rowNumber,
+	private Feature addSpecificationToFeature(IDictionary<string, Feature> readFeatures, int rowNumber,
 		StringBuilder exOutput, string specificationName, string toggleName)
 	{
 		makeSureToggleNameIsAllowed(exOutput, toggleName);
-		Feature feature=null;
-		if (specificationMappings.TryGetValue(specificationName, out var foundSpecification))
+		Feature feature = null;
+		var foundSpecification = specificationMappings.GetSpecification(specificationName);
+		if(foundSpecification != null)
 		{
 			if (readFeatures.TryGetValue(toggleName, out feature))
 			{

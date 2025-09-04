@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Toggle.Net.Specifications;
 
 namespace Toggle.Net.Providers.TextFile;
@@ -16,13 +15,11 @@ public class DefaultSpecificationMappings : ISpecificationMappings
 		["random"] = new RandomSpecification()
 	};
 
-	public IDictionary<string, IToggleSpecification> NameSpecificationMappings()
-	{
-		return _mappings.ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
-	}
-
-	public void AddMapping(string specificationName, IToggleSpecification specification)
-	{
+	public void AddMapping(string specificationName, IToggleSpecification specification) => 
 		_mappings.Add(specificationName, specification);
-	}
+
+	public IToggleSpecification GetSpecification(string name) =>
+		_mappings.TryGetValue(name, out var specification) ? 
+			specification : 
+			null;
 }

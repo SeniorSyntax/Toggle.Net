@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using SharpTestsEx;
 using Toggle.Net.Providers.TextFile;
 using Toggle.Net.Specifications;
 
@@ -24,18 +23,7 @@ public class UniqueSpecificationNameTest
 		Assert.Throws<ArgumentException>(() =>
 			mappings.AddMapping("false", new BoolSpecification(true)));
 	}
-
-	[Test]
-	public void ShouldNotBeAbleToChangeNameSpecificationMappings()
-	{
-		var mappings = new DefaultSpecificationMappings();
-		var specificationMappings = mappings.NameSpecificationMappings();
-		specificationMappings.Add("added", new BoolSpecification(true));
-
-		mappings.NameSpecificationMappings().Count
-			.Should().Not.Be.EqualTo(specificationMappings.Count);
-	}
-
+	
 	[Test]
 	public void ShouldThrowIfAddingMultipleSpecificationDifferOnlyInCasing()
 	{
