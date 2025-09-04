@@ -29,7 +29,8 @@ namespace Toggle.Net.Providers.TextFile;
 /// TheThing.myspecification.MyOtherParam = 13
 /// </example>
 /// </summary>
-public class FileParser : IFeatureProviderFactory
+public class FileParser(IFileReader fileReader, ISpecificationMappings specificationMappings)
+	: IFeatureProviderFactory
 {
 	public const string MustContainEqualSign = "Missing equal sign at line {0}.";
 	public const string MustOnlyContainOneEqualSign = "More than one equal sign at line {0}.";
@@ -40,15 +41,6 @@ public class FileParser : IFeatureProviderFactory
 	public const string MustOnlyBeDeclaredOnce = "Feature '{0}' is declared twice at line {1}. This is not allowed when you've set ThrowIfFeatureIsDeclaredTwice to true.";
 	public const string NotAllowedFeature = "Feature '{0}' is not in AllowedFeatures collection.";
 
-	private readonly IFileReader _fileReader;
-	private readonly ISpecificationMappings _specificationMappings;
-
-	public FileParser(IFileReader fileReader, ISpecificationMappings specificationMappings)
-	{
-		_fileReader = fileReader;
-		_specificationMappings = specificationMappings;
-	}
-
 	public bool ThrowIfFeatureIsDeclaredTwice { get; set; }
 
 	public IEnumerable<string> AllowedFeatures { get; set; }
@@ -56,7 +48,7 @@ public class FileParser : IFeatureProviderFactory
 	public IFeatureProvider Create()
 	{
 		var exOutput = new StringBuilder();
-		var featureSettings = parseFile(_specificationMappings.NameSpecificationMappings(), exOutput);
+		var featureSettings = parseFile(specificationMappings.NameSpecificationMappings(), exOutput);
 		foreach (var feature in featureSettings)
 		{
 			try
@@ -76,7 +68,7 @@ public class FileParser : IFeatureProviderFactory
 	private IDictionary<string, Feature> parseFile(IDictionary<string, IToggleSpecification> specificationMappings, StringBuilder exOutput)
 	{
 		var readFeatures = new Dictionary<string, Feature>(StringComparer.OrdinalIgnoreCase);
-		var content = _fileReader.Content();
+		var content = fileReader.Content();
 		for (var index = 0; index < content.Length; index++)
 		{
 			var row = content[index];
