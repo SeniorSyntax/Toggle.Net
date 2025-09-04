@@ -21,10 +21,10 @@ jobs:
       with:
         dotnet-version: 2.0.x
     - name: Restore dependencies
-      run: dotnet restore code\\Toggle.Net.sln
+      run: dotnet restore code\\Toggle.Net.slnx
     - name: Build
-      run: dotnet build --configuration Release --no-restore code\\Toggle.Net.sln
+      run: dotnet build --configuration Release --no-restore code\\Toggle.Net.slnx
     - name: Test
-      run: dotnet test --configuration Release --no-build --verbosity normal code\\Toggle.Net.sln
+      run: dotnet test --configuration Release --no-build --verbosity normal code\\Toggle.Net.slnx
     - name: NuGet Push
       run: dotnet nuget push "**/*.nupkg" --skip-duplicate --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
