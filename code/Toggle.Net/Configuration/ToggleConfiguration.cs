@@ -38,11 +38,17 @@ public class ToggleConfiguration
 	public IToggleChecker Create()
 	{
 		if (_userProvider == null)
-			_userProvider = new NullUserProvider();
+			_userProvider = new nullUserProvider();
 		if(_defaultToggleSpecification==null)
 			_defaultToggleSpecification = new BoolSpecification(false);
 			
 		var featureProviders = _featureProviderFactories.Select(factory => factory.Create()).ToArray();
 		return new ToggleChecker(featureProviders, _defaultToggleSpecification, _userProvider);
+	}
+	
+	private class nullUserProvider : IUserProvider
+	{
+		public string CurrentUser() => 
+			string.Empty;
 	}
 }
