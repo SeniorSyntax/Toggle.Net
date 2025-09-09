@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Toggle.Net.Specifications;
 
-namespace Toggle.Net.Internal;
+namespace Toggle.Net.Providers;
 
 public class Feature
 {

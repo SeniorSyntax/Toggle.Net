@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Toggle.Net.Internal;
+using Toggle.Net.Providers;
 using Toggle.Net.Specifications;
 
 namespace Toggle.Net.Tests.Other;
