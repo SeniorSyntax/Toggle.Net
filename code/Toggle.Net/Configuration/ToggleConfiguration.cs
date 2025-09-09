@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Toggle.Net.Internal;
 using Toggle.Net.Providers;
 using Toggle.Net.Specifications;
 

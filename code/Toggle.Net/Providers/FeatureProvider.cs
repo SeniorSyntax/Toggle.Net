@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Toggle.Net.Internal;
 
 namespace Toggle.Net.Providers;
 

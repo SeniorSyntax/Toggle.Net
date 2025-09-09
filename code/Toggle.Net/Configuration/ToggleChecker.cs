@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Toggle.Net.Configuration;
 using Toggle.Net.Providers;
 using Toggle.Net.Specifications;
 
-namespace Toggle.Net.Internal;
+namespace Toggle.Net.Configuration;
 
-public class ToggleChecker : IToggleChecker
+internal class ToggleChecker : IToggleChecker
 {
 	private readonly IEnumerable<FeatureProvider> _featureProviders;
 	private readonly IToggleSpecification _defaultToggleSpecification;
