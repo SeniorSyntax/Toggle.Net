@@ -3,8 +3,8 @@ using Toggle.Net.Configuration;
 
 namespace Toggle.Net.Specifications;
 
-public class BoolSpecification(bool value) : IToggleSpecification
+public class DevSpecification : IToggleSpecification
 {
     public bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters) => 
-        value;
+        toggleMode == ToggleMode.Development;
 }

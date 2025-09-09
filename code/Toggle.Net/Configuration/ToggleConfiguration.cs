@@ -10,6 +10,7 @@ public class ToggleConfiguration
 	private readonly IList<IFeatureProviderFactory> _featureProviderFactories;
 	private IUserProvider _userProvider;
 	private IToggleSpecification _defaultToggleSpecification;
+	private ToggleMode _toggleMode;
 
 	public ToggleConfiguration(IFeatureProviderFactory featureProviderFactory)
 	{
@@ -34,15 +35,21 @@ public class ToggleConfiguration
 		return this;
 	}
 
+	public ToggleConfiguration SetToggleMode(ToggleMode toggleMode)
+	{
+		_toggleMode = toggleMode;
+		return this;
+	}
+
 	public IToggleChecker Create()
 	{
 		if (_userProvider == null)
 			_userProvider = new nullUserProvider();
 		if(_defaultToggleSpecification==null)
-			_defaultToggleSpecification = new BoolSpecification(false);
+			_defaultToggleSpecification = new DevSpecification();
 			
 		var featureProviders = _featureProviderFactories.Select(factory => factory.Create()).ToArray();
-		return new ToggleChecker(featureProviders, _defaultToggleSpecification, _userProvider);
+		return new ToggleChecker(featureProviders, _defaultToggleSpecification, _userProvider, _toggleMode);
 	}
 	
 	private class nullUserProvider : IUserProvider

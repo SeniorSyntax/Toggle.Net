@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Toggle.Net.Configuration;
 
 namespace Toggle.Net.Specifications;
 
@@ -17,7 +18,7 @@ public class UserSpecification : IToggleSpecification, IToggleSpecificationValid
 	private const string idsParameter = "ids";
 	private const char delimiter = ',';
 
-	public bool IsEnabled(string currentUser, IDictionary<string, string> parameters)
+	public bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters)
 	{
 		var currentUserContainsDelimiter = currentUser.Contains(delimiter);
 		var parameterValues = parameters[idsParameter];

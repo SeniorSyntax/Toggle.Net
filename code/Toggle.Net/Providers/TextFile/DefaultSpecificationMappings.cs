@@ -12,7 +12,9 @@ public class DefaultSpecificationMappings : ISpecificationMappings
 		["true"] = new BoolSpecification(true),
 		["false"] = new BoolSpecification(false),
 		["user"] = new UserSpecification(),
-		["random"] = new RandomSpecification()
+		["random"] = new RandomSpecification(),
+		["rc"] = new RcSpecification(),
+		["dev"] = new DevSpecification()
 	};
 
 	public void AddMapping(string specificationName, IToggleSpecification specification) => 

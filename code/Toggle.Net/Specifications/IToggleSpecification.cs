@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Toggle.Net.Configuration;
 using Toggle.Net.Providers;
 
 namespace Toggle.Net.Specifications;
@@ -13,8 +14,5 @@ public interface IToggleSpecification
 	/// <summary>
 	/// Is the <see cref="Feature"/> enabled or not?
 	/// </summary>
-	/// <param name="currentUser"></param>
-	/// <param name="parameters"></param>
-	/// <returns></returns>
-	bool IsEnabled(string currentUser, IDictionary<string, string> parameters);
+	bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters);
 }

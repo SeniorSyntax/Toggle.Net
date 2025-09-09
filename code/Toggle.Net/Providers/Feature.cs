@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Toggle.Net.Configuration;
 using Toggle.Net.Specifications;
 
 namespace Toggle.Net.Providers;
@@ -15,10 +16,10 @@ public class Feature
 		AddSpecification(specification);
 	}
 
-	public bool IsEnabled(string currentUser)
+	public bool IsEnabled(ToggleMode toggleMode, string currentUser)
 	{
 		return _specificationData.Keys.All(specification =>
-			specification.IsEnabled(currentUser, _specificationData[specification]));
+			specification.IsEnabled(toggleMode, currentUser, _specificationData[specification]));
 	}
 
 	public void AddSpecification(IToggleSpecification specification)

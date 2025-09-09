@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Toggle.Net.Configuration;
 
 namespace Toggle.Net.Specifications;
 
@@ -9,7 +10,7 @@ public class RegExSpecification(Regex regex) : IToggleSpecification, IToggleSpec
 
 	public const string MustDeclareRegexPattern = "Missing parameter '" + regExParameter + "' for Feature '{0}'.";
 
-	public bool IsEnabled(string currentUser, IDictionary<string, string> parameters)
+	public bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters)
 	{
 		return regex.IsMatch(parameters[regExParameter]);
 	}

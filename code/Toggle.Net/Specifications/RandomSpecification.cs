@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Toggle.Net.Configuration;
 
 namespace Toggle.Net.Specifications;
 
@@ -11,7 +12,7 @@ public class RandomSpecification : IToggleSpecification, IToggleSpecificationVal
 	public const string MustDeclaredPercentAsInt = "RandomSpecification parameter '" + percentParameter + "' for feature '{0}' must be declared as an int.";
 	public const string MustBeBetween0And100 = "RandomSpecification parameter '" + percentParameter + "' for feature '{0}' must be between 0 and 100.";
 
-	public bool IsEnabled(string currentUser, IDictionary<string, string> parameters)
+	public bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters)
 	{
 		var percent = Convert.ToInt32(parameters[percentParameter]);
 		var userHash = currentUser.GetHashCode();
