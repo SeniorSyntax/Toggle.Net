@@ -3,7 +3,7 @@ using Toggle.Net.Internal;
 
 namespace Toggle.Net.Providers;
 
-public class StaticFeatureProvider(IDictionary<string, Feature> features) : IFeatureProvider
+public class FeatureProvider(IDictionary<string, Feature> features)
 {
 	public Feature Get(string toggleName)
 	{

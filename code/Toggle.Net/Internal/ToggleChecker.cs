@@ -7,11 +7,11 @@ namespace Toggle.Net.Internal;
 
 public class ToggleChecker : IToggleChecker
 {
-	private readonly IEnumerable<IFeatureProvider> _featureProviders;
+	private readonly IEnumerable<FeatureProvider> _featureProviders;
 	private readonly IToggleSpecification _defaultToggleSpecification;
 	private readonly IUserProvider _userProvider;
 
-	internal ToggleChecker(IEnumerable<IFeatureProvider> featureProviders, IToggleSpecification defaultToggleSpecification, IUserProvider userProvider)
+	internal ToggleChecker(IEnumerable<FeatureProvider> featureProviders, IToggleSpecification defaultToggleSpecification, IUserProvider userProvider)
 	{
 		_featureProviders = featureProviders;
 		_defaultToggleSpecification = defaultToggleSpecification;

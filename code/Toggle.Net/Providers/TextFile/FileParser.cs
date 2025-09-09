@@ -45,7 +45,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 
 	public IEnumerable<string> AllowedFeatures { get; set; }
 
-	public IFeatureProvider Create()
+	public FeatureProvider Create()
 	{
 		var exOutput = new StringBuilder();
 		var featureSettings = parseFile(exOutput);
@@ -62,7 +62,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		}
 		if (exOutput.Length > 0)
 			throw new IncorrectTextFileException(exOutput.ToString());
-		return new StaticFeatureProvider(featureSettings);
+		return new FeatureProvider(featureSettings);
 	}
 
 	private IDictionary<string, Feature> parseFile(StringBuilder exOutput)
