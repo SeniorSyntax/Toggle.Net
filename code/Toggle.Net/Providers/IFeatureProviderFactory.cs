@@ -5,5 +5,5 @@
 /// </summary>
 public interface IFeatureProviderFactory
 {
-	FeatureProvider Create();
+	IFeatureProvider Create();
 }

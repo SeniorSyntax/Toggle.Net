@@ -2,7 +2,7 @@
 
 namespace Toggle.Net.Providers;
 
-public class FeatureProvider(IDictionary<string, Feature> features)
+public class StaticFeatureProvider(IDictionary<string, Feature> features) : IFeatureProvider
 {
 	public Feature Get(string toggleName)
 	{
