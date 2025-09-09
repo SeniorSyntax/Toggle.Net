@@ -5,18 +5,13 @@ using Toggle.Net.Specifications;
 
 namespace Toggle.Net.Configuration;
 
-public class ToggleConfiguration
+public class ToggleConfiguration(IFeatureProviderFactory featureProviderFactory)
 {
-	private readonly IList<IFeatureProviderFactory> _featureProviderFactories;
+	private readonly IList<IFeatureProviderFactory> _featureProviderFactories = new List<IFeatureProviderFactory> {featureProviderFactory};
 	private IUserProvider _userProvider;
 	private IToggleSpecification _defaultToggleSpecification;
-	private ToggleMode _toggleMode;
+	private ToggleMode _toggleMode = ToggleMode.Customer;
 
-	public ToggleConfiguration(IFeatureProviderFactory featureProviderFactory)
-	{
-		_featureProviderFactories = new List<IFeatureProviderFactory> {featureProviderFactory};
-	}
-		
 	public ToggleConfiguration AddFeatureProviderFactoryWithHigherPriority(IFeatureProviderFactory featureProviderFactory)
 	{
 		_featureProviderFactories.Insert(0, featureProviderFactory);
