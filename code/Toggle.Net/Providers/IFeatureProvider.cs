@@ -12,4 +12,9 @@ public interface IFeatureProvider
 	/// <param name="toggleName"></param>
 	/// <returns><see cref="Feature"/></returns>
 	Feature Get(string toggleName);
+
+	/// <summary>
+	/// Will be called when <see cref="IToggleChecker" /> is created /> 
+	/// </summary>
+	void Init();
 }

@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Toggle.Net.Providers;
 using Toggle.Net.Specifications;
 
 namespace Toggle.Net.Configuration;
 
-public class ToggleConfiguration(IFeatureProviderFactory featureProviderFactory)
+public class ToggleConfiguration(IFeatureProvider featureProvider)
 {
-	private readonly IList<IFeatureProviderFactory> _featureProviderFactories = new List<IFeatureProviderFactory> {featureProviderFactory};
+	private readonly IList<IFeatureProvider> _featureProviders = new List<IFeatureProvider> {featureProvider};
 	private IUserProvider _userProvider;
 	private IToggleSpecification _defaultToggleSpecification;
 	private ToggleMode _toggleMode = ToggleMode.Customer;
 
-	public ToggleConfiguration AddFeatureProviderFactoryWithHigherPriority(IFeatureProviderFactory featureProviderFactory)
+	public ToggleConfiguration AddFeatureProviderFactoryWithHigherPriority(IFeatureProvider featureProvider)
 	{
-		_featureProviderFactories.Insert(0, featureProviderFactory);
+		_featureProviders.Insert(0, featureProvider);
 		return this;
 	}
 
@@ -38,13 +37,14 @@ public class ToggleConfiguration(IFeatureProviderFactory featureProviderFactory)
 
 	public IToggleChecker Create()
 	{
-		if (_userProvider == null)
-			_userProvider = new nullUserProvider();
-		if(_defaultToggleSpecification==null)
-			_defaultToggleSpecification = new DevSpecification();
-			
-		var featureProviders = _featureProviderFactories.Select(factory => factory.Create()).ToArray();
-		return new ToggleChecker(featureProviders, _defaultToggleSpecification, _userProvider, _toggleMode);
+		_userProvider ??= new nullUserProvider();
+		_defaultToggleSpecification ??= new DevSpecification();
+
+		foreach (var provider in _featureProviders)
+		{
+			provider.Init();
+		}
+		return new ToggleChecker(_featureProviders, _defaultToggleSpecification, _userProvider, _toggleMode);
 	}
 	
 	private class nullUserProvider : IUserProvider

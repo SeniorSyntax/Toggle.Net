@@ -29,8 +29,10 @@ namespace Toggle.Net.Providers.TextFile;
 /// </example>
 /// </summary>
 public class FileParser(IFileReader fileReader, ISpecificationMappings specificationMappings)
-	: IFeatureProviderFactory
+	: IFeatureProvider
 {
+	private IDictionary<string, Feature> _featureSettings;
+	
 	public const string MustContainEqualSign = "Missing equal sign at line {0}.";
 	public const string MustOnlyContainOneEqualSign = "More than one equal sign at line {0}.";
 	public const string MustHaveValidSpecification = "Unknown specification '{0}' at line {1}.";
@@ -41,10 +43,17 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 	public const string NotAllowedFeature = "Feature '{0}' is not in AllowedFeatures collection.";
 
 	public bool ThrowIfFeatureIsDeclaredTwice { get; set; }
-
 	public IEnumerable<string> AllowedFeatures { get; set; }
 
-	public IFeatureProvider Create()
+	
+	public Feature Get(string toggleName)
+	{
+		return _featureSettings.TryGetValue(toggleName, out var feature) ?
+			feature :
+			null;
+	}
+
+	public void Init()
 	{
 		var exOutput = new StringBuilder();
 		var featureSettings = parseFile(exOutput);
@@ -61,7 +70,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		}
 		if (exOutput.Length > 0)
 			throw new IncorrectTextFileException(exOutput.ToString());
-		return new StaticFeatureProvider(featureSettings);
+		_featureSettings = featureSettings;
 	}
 
 	private IDictionary<string, Feature> parseFile(StringBuilder exOutput)
