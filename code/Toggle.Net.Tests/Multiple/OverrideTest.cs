@@ -21,7 +21,7 @@ public class OverrideTest
             "someflag=true"
         };
         new ToggleConfiguration(new FileParser(new FileReaderStub(contentLowPrio), new DefaultSpecificationMappings()))
-            .AddFeatureProviderFactoryWithHigherPriority(new FileParser(new FileReaderStub(contentHighPrio), new DefaultSpecificationMappings()))
+            .AddFeatureProviderWithHigherPriority(new FileParser(new FileReaderStub(contentHighPrio), new DefaultSpecificationMappings()))
             .Create().IsEnabled("someflag")
             .Should().Be.True();
     }
@@ -38,7 +38,7 @@ public class OverrideTest
             "someflag2=false"
         };
         new ToggleConfiguration(new FileParser(new FileReaderStub(contentLowPrio), new DefaultSpecificationMappings()))
-            .AddFeatureProviderFactoryWithHigherPriority(new FileParser(new FileReaderStub(contentHighPrio), new DefaultSpecificationMappings()))
+            .AddFeatureProviderWithHigherPriority(new FileParser(new FileReaderStub(contentHighPrio), new DefaultSpecificationMappings()))
             .Create().IsEnabled("someflag")
             .Should().Be.True();
     }
@@ -55,7 +55,7 @@ public class OverrideTest
             "someflag2=false"
         };
         new ToggleConfiguration(new FileParser(new FileReaderStub(contentLowPrio), new DefaultSpecificationMappings()))
-            .AddFeatureProviderFactoryWithHigherPriority(new FileParser(new FileReaderStub(contentHighPrio), new DefaultSpecificationMappings()))
+            .AddFeatureProviderWithHigherPriority(new FileParser(new FileReaderStub(contentHighPrio), new DefaultSpecificationMappings()))
             .SetDefaultSpecification(new BoolSpecification(true))
             .Create().IsEnabled("someflag")
             .Should().Be.True();

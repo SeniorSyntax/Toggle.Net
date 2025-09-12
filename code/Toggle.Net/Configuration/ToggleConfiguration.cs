@@ -11,7 +11,7 @@ public class ToggleConfiguration(IFeatureProvider featureProvider)
 	private IToggleSpecification _defaultToggleSpecification;
 	private ToggleMode _toggleMode = ToggleMode.Customer;
 
-	public ToggleConfiguration AddFeatureProviderFactoryWithHigherPriority(IFeatureProvider featureProvider)
+	public ToggleConfiguration AddFeatureProviderWithHigherPriority(IFeatureProvider featureProvider)
 	{
 		_featureProviders.Insert(0, featureProvider);
 		return this;
