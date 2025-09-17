@@ -32,6 +32,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 	: IFeatureProvider
 {
 	private IDictionary<string, Feature> _featureSettings;
+	private bool _allowMultipleFeatureDeclarations;
 	
 	public const string MustContainEqualSign = "Missing equal sign at line {0}.";
 	public const string MustOnlyContainOneEqualSign = "More than one equal sign at line {0}.";
@@ -41,10 +42,15 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 	public const string MustOnlyContainSameParameterOnce = "Parameter '{0}' declared twice at line {1}.";
 	public const string MustOnlyBeDeclaredOnce = "Feature '{0}' is declared twice at line {1}. This is not allowed when you've set ThrowIfFeatureIsDeclaredTwice to true.";
 	public const string NotAllowedFeature = "Feature '{0}' is not in AllowedFeatures collection.";
-
-	public bool ThrowIfFeatureIsDeclaredTwice { get; set; }
+	
 	public IEnumerable<string> AllowedFeatures { get; set; }
-
+	
+	public FileParser AllowMultipleFeatureDeclarations()
+	{
+		_allowMultipleFeatureDeclarations = true;
+		return this;
+	}
+	
 	
 	public Feature Get(string toggleName)
 	{
@@ -156,13 +162,13 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		{
 			if (readFeatures.TryGetValue(toggleName, out feature))
 			{
-				if (ThrowIfFeatureIsDeclaredTwice)
+				if (_allowMultipleFeatureDeclarations)
 				{
-					exOutput.AppendLine(string.Format(MustOnlyBeDeclaredOnce, toggleName, rowNumber));
+					feature.AddSpecification(foundSpecification);
 				}
 				else
 				{
-					feature.AddSpecification(foundSpecification);
+					exOutput.AppendLine(string.Format(MustOnlyBeDeclaredOnce, toggleName, rowNumber));
 				}
 			}
 			else
