@@ -17,9 +17,8 @@ public class AllowedFeaturesTest
         };
         Assert.Throws<IncorrectTextFileException>(() =>
                 new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-                {
-                    AllowedFeatures = new[]{"someflag2"}
-                }).Create()
+                    .SetAllowedFeatures(["someflag2"]))
+                    .Create()
             ).ToString()
             .Should().Contain(string.Format(FileParser.NotAllowedFeature, "someflag"));
     }
@@ -32,9 +31,8 @@ public class AllowedFeaturesTest
             "someflag1=false"
         };
         new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-            {
-                AllowedFeatures = new[]{"someflag1", "someflag2"}
-            }).Create().IsEnabled("someflag1")
+            .SetAllowedFeatures(["someflag1", "someflag2"]))
+            .Create().IsEnabled("someflag1")
             .Should().Be.False();
     }
         
@@ -46,9 +44,8 @@ public class AllowedFeaturesTest
             "someflag=true"
         };
         new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-            {
-                AllowedFeatures = new[]{"SoMeFLag"}
-            }).Create().IsEnabled("someflag")
+            .SetAllowedFeatures(["SoMeFLag"]))
+            .Create().IsEnabled("someflag")
             .Should().Be.True();
     }
 
@@ -60,9 +57,8 @@ public class AllowedFeaturesTest
             "someflag=true"
         };
         new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())
-            {
-                AllowedFeatures = new[]{"                someflag          "}
-            }).Create().IsEnabled("someflag")
+            .SetAllowedFeatures(["                someflag          "]))
+            .Create().IsEnabled("someflag")
             .Should().Be.True();
     }
 }

@@ -33,6 +33,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 {
 	private IDictionary<string, Feature> _featureSettings;
 	private bool _allowMultipleFeatureDeclarations;
+	private IEnumerable<string> _allowedFeatures;
 	
 	public const string MustContainEqualSign = "Missing equal sign at line {0}.";
 	public const string MustOnlyContainOneEqualSign = "More than one equal sign at line {0}.";
@@ -40,17 +41,20 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 	public const string MustHaveTwoDotsIfParameterUse =
 		"Wrong parameter usage at line {0}. Use format [feature].[specification].[parametername] = [parametervalue].";
 	public const string MustOnlyContainSameParameterOnce = "Parameter '{0}' declared twice at line {1}.";
-	public const string MustOnlyBeDeclaredOnce = "Feature '{0}' is declared twice at line {1}. This is not allowed when you've set ThrowIfFeatureIsDeclaredTwice to true.";
-	public const string NotAllowedFeature = "Feature '{0}' is not in AllowedFeatures collection.";
-	
-	public IEnumerable<string> AllowedFeatures { get; set; }
-	
+	public const string MustOnlyBeDeclaredOnce = "Feature '{0}' is declared twice at line {1}. This is not allowed when AllowMultipleFeatureDeclarations is set.";
+	public const string NotAllowedFeature = "Feature '{0}' has not been set in AllowedFeatures collection.";
+
 	public FileParser AllowMultipleFeatureDeclarations()
 	{
 		_allowMultipleFeatureDeclarations = true;
 		return this;
 	}
-	
+
+	public FileParser SetAllowedFeatures(IEnumerable<string> allowedFeatures)
+	{
+		_allowedFeatures = allowedFeatures;
+		return this;
+	}
 	
 	public Feature Get(string toggleName)
 	{
@@ -186,7 +190,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 
 	private void makeSureToggleNameIsAllowed(StringBuilder exOutput, string toggleName)
 	{
-		if (AllowedFeatures!=null && !AllowedFeatures.Any(x => string.Equals(x.Trim(), toggleName, StringComparison.CurrentCultureIgnoreCase)))
+		if (_allowedFeatures != null && !_allowedFeatures.Any(x => string.Equals(x.Trim(), toggleName, StringComparison.CurrentCultureIgnoreCase)))
 		{
 			exOutput.AppendLine(string.Format(NotAllowedFeature, toggleName));
 		}
