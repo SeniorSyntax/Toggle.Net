@@ -56,12 +56,10 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		return this;
 	}
 	
-	public Feature Get(string toggleName)
-	{
-		return _featureSettings.TryGetValue(toggleName, out var feature) ?
+	public Feature Get(string toggleName) =>
+		_featureSettings.TryGetValue(toggleName, out var feature) ?
 			feature :
 			null;
-	}
 
 	public void Init()
 	{
