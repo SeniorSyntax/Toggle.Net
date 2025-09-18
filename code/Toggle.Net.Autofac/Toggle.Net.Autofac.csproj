@@ -6,7 +6,7 @@
         <PackageProjectUrl>https://github.com/Teleopti/Toggle.Net</PackageProjectUrl>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageTags>flag, toggle, bit, config, feature, branch</PackageTags>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild> <!-- turn be turned on -->
         <PackageVersion>2.3.0$(GITHUB_RUN_NUMBER)</PackageVersion>
         <Version>2.3.0$(GITHUB_RUN_NUMBER)</Version>
 
