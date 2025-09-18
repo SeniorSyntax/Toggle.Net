@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <PackageId>Toggle.Net.Autofac</PackageId>
+        <Authors>Roger Kratz</Authors>
+        <Description>Feature flags for .net</Description>
+        <PackageProjectUrl>https://github.com/Teleopti/Toggle.Net</PackageProjectUrl>
+        <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <PackageTags>flag, toggle, bit, config, feature, branch</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>2.3.0$(GITHUB_RUN_NUMBER)</PackageVersion>
+        <Version>2.3.0$(GITHUB_RUN_NUMBER)</Version>
+
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyOriginatorKeyFile>../toggle.net.snk</AssemblyOriginatorKeyFile>
+        <LangVersion>latest</LangVersion>
+        <SignAssembly>true</SignAssembly>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Toggle.Net\Toggle.Net.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="7.1.0" />
+    </ItemGroup>
+</Project>

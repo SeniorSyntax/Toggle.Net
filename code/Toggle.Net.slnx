@@ -2,6 +2,8 @@
   <Folder Name="/files/">
     <File Path="..\.github\workflows\dotnet.yml" />
   </Folder>
+  <Project Path="Toggle.Net.Autofac.Test\Toggle.Net.Autofac.Test.csproj" Type="Classic C#" />
+  <Project Path="Toggle.Net.Autofac\Toggle.Net.Autofac.csproj" Type="Classic C#" />
   <Project Path="Toggle.Net.Tests\Toggle.Net.Tests.csproj" />
   <Project Path="Toggle.Net\Toggle.Net.csproj" />
 </Solution>
