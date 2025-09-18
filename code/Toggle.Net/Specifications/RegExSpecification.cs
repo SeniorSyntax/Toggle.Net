@@ -10,10 +10,8 @@ public class RegExSpecification(Regex regex) : IToggleSpecification, IToggleSpec
 
 	public const string MustDeclareRegexPattern = "Missing parameter '" + regExParameter + "' for Feature '{0}'.";
 
-	public bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters)
-	{
-		return regex.IsMatch(parameters[regExParameter]);
-	}
+	public bool IsEnabled(ToggleMode toggleMode, string currentUser, IDictionary<string, string> parameters) => 
+		regex.IsMatch(parameters[regExParameter]);
 
 	public void Validate(string toggleName, IDictionary<string, string> parameters)
 	{
