@@ -11,14 +11,10 @@
         <Version>2.3.0$(GITHUB_RUN_NUMBER)</Version>
 
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyOriginatorKeyFile>../toggle.net.snk</AssemblyOriginatorKeyFile>
         <LangVersion>latest</LangVersion>
-        <SignAssembly>true</SignAssembly>
     </PropertyGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Toggle.Net\Toggle.Net.csproj" />
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="Autofac" Version="7.1.0" />
+        <PackageReference Include="LinFu.DynamicProxy" Version="2.1.2" />
     </ItemGroup>
 </Project>
