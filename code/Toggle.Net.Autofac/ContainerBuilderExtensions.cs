@@ -7,7 +7,7 @@ using LinFu.DynamicProxy;
 
 namespace Toggle.Net.Autofac;
 
-public static class RegisterToggledComponentExtensions
+public static class ContainerBuilderExtensions
 {
 	private static readonly ProxyFactory proxyFactory = new();
 	
