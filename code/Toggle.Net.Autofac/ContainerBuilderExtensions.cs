@@ -30,7 +30,7 @@ public static class ContainerBuilderExtensions
 				throw new ToggledRegistrationIsNotEnabledException();
 			return proxyFactory.CreateProxy<TInterface>(
 				new toggledTypeInterceptor<TToggleOn, TToggleOff>(c, toggleName, resolveOnce));
-		});
+		}).SingleInstance();
 	}
 
 	private static MethodInfo createGenericMethodInfoIfNeeded(MethodInfo orgMethodInfo, Type[] typeArguments) =>

@@ -61,6 +61,16 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 	}
 
 	[Test]
+	public void ShouldHaveProxyAsSingleInstance()
+	{
+		using (var newScope = _container.BeginLifetimeScope())
+		{
+			var myService2 = newScope.Resolve<IMyService>();
+			_myService.Should().Be.SameInstanceAs(myService2);
+		}
+	}
+
+	[Test]
 	public void ShouldBubbleUpRealException()
 	{
 		Assert.Throws<ArgumentException>(() => { _myService.MethodThatThrowsArgumentException(); });
