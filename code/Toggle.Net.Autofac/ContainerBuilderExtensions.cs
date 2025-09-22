@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using Autofac;
-using Autofac.Builder;
 using LinFu.DynamicProxy;
 
 namespace Toggle.Net.Autofac;
@@ -11,10 +10,10 @@ public static class ContainerBuilderExtensions
 {
 	private static readonly ProxyFactory proxyFactory = new();
 	
-	public static IRegistrationBuilder<TInterface, SimpleActivatorData, SingleRegistrationStyle> RegisterToggledComponent<TToggleOn, TToggleOff, TInterface>
+	public static void RegisterToggledComponent<TToggleOn, TToggleOff, TInterface>
 		(
-			this ContainerBuilder builder, 
-			string toggleName, 
+			this ContainerBuilder builder,
+			string toggleName,
 			bool resolveOnce
 		)
 		where TToggleOn : TInterface
@@ -23,8 +22,8 @@ public static class ContainerBuilderExtensions
 	{
 		if (!typeof(TInterface).IsInterface)
 			throw new ArgumentException("TInterface type must be an interface. Toggled class proxies not supported ATM.");
-		
-		return builder.Register(c =>
+
+		builder.Register(c =>
 		{
 			if (!c.IsRegistered<IToggledRegistrationPicker>())
 				throw new ToggledRegistrationIsNotEnabledException();
