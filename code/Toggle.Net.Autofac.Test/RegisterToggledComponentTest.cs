@@ -1,22 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Autofac;
-using Autofac.Builder;
 using NUnit.Framework;
 using SharpTestsEx;
 
 namespace Toggle.Net.Autofac.Test;
-
-public class ToggleState
-{
-	private readonly Dictionary<string, bool> _toggleStates = new();
-	
-	public bool IsEnabled(string toggleName) => _toggleStates[toggleName];
-
-	public void Set(string theToggle, bool toggleState) => 
-		_toggleStates[theToggle] = toggleState;
-}
 
 [TestFixture(true, true)]
 [TestFixture(true, false)]
@@ -24,7 +11,7 @@ public class ToggleState
 [TestFixture(false, true)]
 public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 {
-	private readonly string _theToggle = "theToggle";
+	private const string theToggle = "theToggle";
 	private IMyService _myService;
 	private IContainer _container;
 	private ToggleState _toggleState;
@@ -45,13 +32,13 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 		var builder = new ContainerBuilder();
 		builder.RegisterType<MyServiceOn>();
 		builder.RegisterType<MyServiceOff>();
-		builder.RegisterToggledComponent<MyServiceOn, MyServiceOff, IMyService>(_theToggle, resolveOnce);
+		builder.RegisterToggledComponent<MyServiceOn, MyServiceOff, IMyService>(theToggle, resolveOnce);
 		builder.EnableToggledRegistrations<enableToggledRegistrations>();
 		builder.RegisterType<ToggleState>().SingleInstance();
 		_container = builder.Build();
 		_myService = _container.Resolve<IMyService>();
 		_toggleState = _container.Resolve<ToggleState>();
-		_toggleState.Set(_theToggle, toggleState);
+		_toggleState.Set(theToggle, toggleState);
 	}
 
 	[TearDown]
@@ -107,7 +94,7 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 	[Test]
 	public void ShouldChangeReturnedTypeOnTheFly_FirstAccessAfterOverride()
 	{
-		_toggleState.Set(_theToggle, !_toggleState.IsEnabled(_theToggle));
+		_toggleState.Set(theToggle, !_toggleState.IsEnabled(theToggle));
 		var value = _myService.Value;
 		value.Should().Be.EqualTo(!toggleState);
 	}
@@ -116,7 +103,7 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 	public void ShouldChangeReturnedTypeOnTheFly_FirstAccessBeforeOverride()
 	{
 		_myService.Value.ToString(); //trigger a first call
-		_toggleState.Set(_theToggle, !_toggleState.IsEnabled(_theToggle));
+		_toggleState.Set(theToggle, !_toggleState.IsEnabled(theToggle));
 		var value = _myService.Value;
 		if (resolveOnce)
 		{
@@ -138,7 +125,7 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 		var builder = new ContainerBuilder();
 		Assert.Throws<ArgumentException>(() =>
 		{
-			builder.RegisterToggledComponent<MyServiceOn, MyServiceOff, object>(_theToggle, resolveOnce);
+			builder.RegisterToggledComponent<MyServiceOn, MyServiceOff, object>(theToggle, resolveOnce);
 		});
 	}
 
