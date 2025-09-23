@@ -1,0 +1,55 @@
+﻿using NUnit.Framework;
+using SharpTestsEx;
+using Toggle.Net.Configuration;
+using Toggle.Net.Providers.TextFile;
+using Toggle.Net.Test.Stubs;
+
+namespace Toggle.Net.Test.TextFile;
+
+public class IncorrectTextTest
+{
+	[NUnit.Framework.Test]
+	public void ShouldContainEqualSign()
+	{
+		var content = new[] { "someflag2" };
+		Assert.Throws<IncorrectTextFileException>(() =>
+				new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())).Create()
+			).ToString()
+			.Should().Contain(string.Format(FileParser.MustContainEqualSign, 1));
+	}
+
+	[NUnit.Framework.Test]
+	public void ShouldNotContainMoreThanOneEqualSign()
+	{
+		var content = new[] { "someflag=true=true" };
+		Assert.Throws<IncorrectTextFileException>(() =>
+				new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())).Create()
+			).ToString()
+			.Should().Contain(string.Format(FileParser.MustOnlyContainOneEqualSign, 1));
+	}
+
+	[NUnit.Framework.Test]
+	public void ShouldReturnAllExceptions()
+	{
+		var content = new[]
+		{
+			"missingEqual",
+			"multipleEqual=false=true"
+		};
+		var ex = Assert.Throws<IncorrectTextFileException>(() =>
+			new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())).Create()
+		).ToString();
+		ex.Should().Contain(string.Format(FileParser.MustContainEqualSign, 1));
+		ex.Should().Contain(string.Format(FileParser.MustOnlyContainOneEqualSign, 2));
+	}
+
+	[NUnit.Framework.Test]
+	public void ShouldContainValidSpecification()
+	{
+		var content = new[] { "someflag=maybe" };
+		Assert.Throws<IncorrectTextFileException>(() =>
+				new ToggleConfiguration(new FileParser(new FileReaderStub(content), new DefaultSpecificationMappings())).Create()
+			).ToString()
+			.Should().Contain(string.Format(FileParser.MustHaveValidSpecification, "maybe", 1));
+	}
+}
