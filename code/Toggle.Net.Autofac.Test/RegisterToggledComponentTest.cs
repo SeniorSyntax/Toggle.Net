@@ -82,7 +82,7 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 	[Test]
 	public void ShouldBeAbleToCallGenericMethod()
 	{
-		_container.Resolve<IMyService>().Returns100<string>()
+		_myService.Returns100<string>()
 			.Should().Be.EqualTo(100);
 	}
 
