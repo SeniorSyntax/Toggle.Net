@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
@@ -149,5 +150,15 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 		int Returns100<T>();
 		bool Value { get; }
 		void MethodThatThrowsArgumentException();
+	}
+	
+	public class ToggleState
+	{
+		private readonly Dictionary<string, bool> _toggleStates = new();
+	
+		public bool IsEnabled(string toggleName) => _toggleStates[toggleName];
+
+		public void Set(string theToggle, bool toggleState) => 
+			_toggleStates[theToggle] = toggleState;
 	}
 }
