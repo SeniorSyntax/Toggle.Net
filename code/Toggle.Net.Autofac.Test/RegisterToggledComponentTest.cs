@@ -42,19 +42,14 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 	}
 
 	[TearDown]
-	public void AfterTest()
-	{
-		_container.Dispose();
-	}
+	public void AfterTest() => _container.Dispose();
 
 	[Test]
 	public void ShouldHaveProxyAsSingleInstance()
 	{
-		using (var newScope = _container.BeginLifetimeScope())
-		{
-			var myService2 = newScope.Resolve<IMyService>();
-			_myService.Should().Be.SameInstanceAs(myService2);
-		}
+		using var newScope = _container.BeginLifetimeScope();
+		var myService2 = newScope.Resolve<IMyService>();
+		_myService.Should().Be.SameInstanceAs(myService2);
 	}
 
 	[Test]
@@ -72,7 +67,7 @@ public class RegisterToggledComponentTest(bool toggleState, bool resolveOnce)
 		}
 		catch (Exception e)
 		{
-			var stackTraceLines = e.StackTrace.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+			var stackTraceLines = e.StackTrace.Split([Environment.NewLine], StringSplitOptions.None);
 			stackTraceLines[0].Should().Contain("MethodThatThrowsArgumentException");
 		}
 	}
