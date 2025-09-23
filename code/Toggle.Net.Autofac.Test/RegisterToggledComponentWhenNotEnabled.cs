@@ -7,7 +7,7 @@ namespace Toggle.Net.Autofac.Test;
 public class RegisterToggledComponentWhenNotEnabled
 {
     [Test]
-    public void ShouldThrowIfNotEnabled([Values(false, true)] bool resolveOnce)
+    public void ShouldThrowIfNotToggleRegistrationIsEnabled([Values(false, true)] bool resolveOnce)
     {
         var builder = new ContainerBuilder();
         builder.RegisterToggledComponent<Foo1, Foo2, IFoo>("_", resolveOnce);
