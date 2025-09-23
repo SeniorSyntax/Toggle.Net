@@ -4,6 +4,8 @@
   </Folder>
   <Project Path="Toggle.Net.Autofac.Test\Toggle.Net.Autofac.Test.csproj" Type="Classic C#" />
   <Project Path="Toggle.Net.Autofac\Toggle.Net.Autofac.csproj" Type="Classic C#" />
+  <Project Path="Toggle.Net.Ioc.Test\Toggle.Net.Ioc.Test.csproj" Type="Classic C#" />
+  <Project Path="Toggle.Net.Ioc\Toggle.Net.Ioc.csproj" Type="Classic C#" />
   <Project Path="Toggle.Net.Tests\Toggle.Net.Tests.csproj" />
   <Project Path="Toggle.Net\Toggle.Net.csproj" />
 </Solution>
