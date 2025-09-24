@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class MultipleSpecificationTests
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void AllMustBeEnabledIfAllowingMultipleFeatureDeclarations()
 	{
 		var content = new[]
@@ -21,7 +21,7 @@ public class MultipleSpecificationTests
 			.Should().Be.False();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ThrowByDefaultIfMultiple()
 	{
 		var content = new[]

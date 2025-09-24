@@ -9,7 +9,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class NonExistingFeatureTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldDefaultToFalse()
 	{
 		var toggleChecker = new ToggleConfiguration(new FileParser(new FileReaderStub(new string[0]), new DefaultSpecificationMappings())).Create();
@@ -17,7 +17,7 @@ public class NonExistingFeatureTest
 			.Should().Be.False();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeAbleToChangeDefaultSpecification()
 	{
 		var toggleChecker = new ToggleConfiguration(new FileParser(new FileReaderStub(new string[0]), new DefaultSpecificationMappings()))

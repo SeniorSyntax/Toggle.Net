@@ -10,7 +10,7 @@ public class SimpleIntegrationTest
 {
 	private string tempPath;
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeEnabled()
 	{
 		var content = new[] {"someflag=true"};

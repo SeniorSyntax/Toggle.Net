@@ -9,7 +9,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class UserTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeEnabled()
 	{
 		var content = new[]
@@ -25,7 +25,7 @@ public class UserTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeDisabled()
 	{
 		var content = new[]
@@ -41,7 +41,7 @@ public class UserTest
 			.Should().Be.False();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeEnabledIfExistsInParameterList()
 	{
 		var content = new[]
@@ -58,7 +58,7 @@ public class UserTest
 	}
 
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeEnabledIfExistsInParameterListWithSpaces()
 	{
 		var content = new[]
@@ -74,7 +74,7 @@ public class UserTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldTreatIdsAsOneIfCurrentUserContainsComma_Disabled()
 	{
 		var content = new[]
@@ -91,7 +91,7 @@ public class UserTest
 	}
 
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldTreatIdsAsOneIfCurrentUserContainsComma_Enabled()
 	{
 		var content = new[]
@@ -107,7 +107,7 @@ public class UserTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldNotBeCaseSensitive()
 	{
 		var content = new[]
@@ -123,7 +123,7 @@ public class UserTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldNotBeCaseSensitiveWhenCurrentUserContainsComma()
 	{
 		var content = new[]
@@ -139,7 +139,7 @@ public class UserTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfMissingIdsValue()
 	{
 		var content = new[]

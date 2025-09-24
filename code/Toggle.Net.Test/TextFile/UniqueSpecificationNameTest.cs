@@ -7,7 +7,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class UniqueSpecificationNameTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfAddingSpecificationsWithSameName()
 	{
 		var mappings = new DefaultSpecificationMappings();
@@ -16,7 +16,7 @@ public class UniqueSpecificationNameTest
 			mappings.AddMapping("double", new BoolSpecification(true)));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfAddingSpecificationsWithSameNameAsDefaultOne()
 	{
 		var mappings = new DefaultSpecificationMappings();
@@ -24,7 +24,7 @@ public class UniqueSpecificationNameTest
 			mappings.AddMapping("false", new BoolSpecification(true)));
 	}
 	
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfAddingMultipleSpecificationDifferOnlyInCasing()
 	{
 		var mappings = new DefaultSpecificationMappings();

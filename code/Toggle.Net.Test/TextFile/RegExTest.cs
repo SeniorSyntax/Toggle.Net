@@ -10,7 +10,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class RegExTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldHandleMatch()
 	{
 		const string wordToMatch = "the toggle";
@@ -30,7 +30,7 @@ public class RegExTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldHandleMiss()
 	{
 		const string wordToMatch = "the toggle";
@@ -50,7 +50,7 @@ public class RegExTest
 			.Should().Be.False();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfRegExIsMissing()
 	{
 		const string wordToMatch = "the toggle";

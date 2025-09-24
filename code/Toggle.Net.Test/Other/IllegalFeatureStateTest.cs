@@ -7,7 +7,7 @@ namespace Toggle.Net.Test.Other;
 
 public class IllegalFeatureStateTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldNotAcceptNullAsFeature()
 	{
 		Assert.Throws<ArgumentNullException>(() => 
@@ -15,7 +15,7 @@ public class IllegalFeatureStateTest
 		);
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldNotAcceptNullWhenAddingFeature()
 	{
 		var feature = new Feature(new BoolSpecification(false));

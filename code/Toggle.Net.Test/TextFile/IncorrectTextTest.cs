@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class IncorrectTextTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldContainEqualSign()
 	{
 		var content = new[] { "someflag2" };
@@ -18,7 +18,7 @@ public class IncorrectTextTest
 			.Should().Contain(string.Format(FileParser.MustContainEqualSign, 1));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldNotContainMoreThanOneEqualSign()
 	{
 		var content = new[] { "someflag=true=true" };
@@ -28,7 +28,7 @@ public class IncorrectTextTest
 			.Should().Contain(string.Format(FileParser.MustOnlyContainOneEqualSign, 1));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldReturnAllExceptions()
 	{
 		var content = new[]
@@ -43,7 +43,7 @@ public class IncorrectTextTest
 		ex.Should().Contain(string.Format(FileParser.MustOnlyContainOneEqualSign, 2));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldContainValidSpecification()
 	{
 		var content = new[] { "someflag=maybe" };

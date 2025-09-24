@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile.WithParameters;
 
 public class EdgeCasesTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldFindParameterWithWrongCasing()
 	{
 		var content = new[]
@@ -25,7 +25,7 @@ public class EdgeCasesTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldTrimAfterParameter()
 	{
 		var content = new[]
@@ -42,7 +42,7 @@ public class EdgeCasesTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldTrimBeforeFeatureName()
 	{
 		var content = new[]

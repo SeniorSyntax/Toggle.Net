@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class AllowedFeaturesTest
 {
-    [NUnit.Framework.Test]
+    [Test]
     public void ThrowIfUnknownFeature()
     {
         var content = new[]
@@ -23,7 +23,7 @@ public class AllowedFeaturesTest
             .Should().Contain(string.Format(FileParser.NotAllowedFeature, "someflag"));
     }
 
-    [NUnit.Framework.Test]
+    [Test]
     public void ShouldAllowFeatureIfExistInCollection()
     {
         var content = new[]
@@ -36,7 +36,7 @@ public class AllowedFeaturesTest
             .Should().Be.False();
     }
         
-    [NUnit.Framework.Test]
+    [Test]
     public void ShouldNotCareAboutCasing()
     {
         var content = new[]
@@ -49,7 +49,7 @@ public class AllowedFeaturesTest
             .Should().Be.True();
     }
 
-    [NUnit.Framework.Test]
+    [Test]
     public void ShouldNotCareAboutSpaces()
     {
         var content = new[]

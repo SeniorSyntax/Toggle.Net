@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile.WithParameters;
 
 public class ParameterShortSyntaxTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeAbleToRunSingleParameterSpecificationUsingOneLine()
 	{
 		var content = new[]
@@ -24,7 +24,7 @@ public class ParameterShortSyntaxTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldContainValidSpecificationUsingShortSyntax()
 	{
 		var content = new[] { "someflag.nope.nope=true" };

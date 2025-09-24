@@ -35,7 +35,7 @@ public class EmptyToggleModeTest : CustomerTest
 
 public abstract class ToggleModeTest
 {
-    [NUnit.Framework.Test]
+    [Test]
 	public void DisabledFeatureInFile()
 	{
 		var content = new[] { "someflag=false" };
@@ -44,7 +44,7 @@ public abstract class ToggleModeTest
 			.Should().Be.False();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void EnabledFeatureInFile()
 	{
 		var content = new[] { "someflag=true" };
@@ -53,7 +53,7 @@ public abstract class ToggleModeTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void UndefinedFeatureInFile()
 	{
 		string[] content = [];
@@ -62,7 +62,7 @@ public abstract class ToggleModeTest
 			.Should().Be.EqualTo(UndefinedFeatureShouldBe);
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void RcFeatureInFile()
 	{
 		var content = new[] { "someflag=rc" };
@@ -71,7 +71,7 @@ public abstract class ToggleModeTest
 			.Should().Be.EqualTo(RcFeatureShouldBe);
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void DevFeatureInFile()
 	{
 		var content = new[] { "someflag=dev" };

@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class FalseTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeDisabled()
 	{
 		var content = new[] { "someflag=false" };

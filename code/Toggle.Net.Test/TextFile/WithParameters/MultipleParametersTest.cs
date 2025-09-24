@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile.WithParameters;
 
 public class MultipleParametersTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeEnabled()
 	{
 		var content = new[]
@@ -26,7 +26,7 @@ public class MultipleParametersTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeDisabled()
 	{
 		var content = new[]

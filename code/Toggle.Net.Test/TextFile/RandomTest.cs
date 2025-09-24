@@ -9,7 +9,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class RandomTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldAlwaysBeEnabledIf100Percent()
 	{
 		var content = new[]
@@ -25,7 +25,7 @@ public class RandomTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldAlwaysBeDisabledIf0Percent()
 	{
 		var content = new[]
@@ -41,7 +41,7 @@ public class RandomTest
 			.Should().Be.False();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldRandomize()
 	{
 		var content = new[]
@@ -65,7 +65,7 @@ public class RandomTest
 		numberOfEnabled.Should().Be.IncludedIn(3000, 7000);
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldReturnSameValueForOneSpecificUser()
 	{
 		var content = new[]
@@ -85,7 +85,7 @@ public class RandomTest
 		toggleChecker.IsEnabled("someflag").Should().Be.EqualTo(firstResult);
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldOnlyAcceptInts()
 	{
 		var content = new[]
@@ -100,7 +100,7 @@ public class RandomTest
 			.Should().Contain(string.Format(RandomSpecification.MustDeclaredPercentAsInt, "someflag"));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfMissingPercent()
 	{
 		var content = new[]
@@ -115,7 +115,7 @@ public class RandomTest
 	}
 
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfOutOfRange([Values("-1000", "-1", "101", "1000")] string percent)
 	{
 		var content = new[]

@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class RemarkTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeAbleToWriteRemarks()
 	{
 		var content = new[]
@@ -22,7 +22,7 @@ public class RemarkTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldAllowBlankLines()
 	{
 		var content = new[]
@@ -37,7 +37,7 @@ public class RemarkTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldAllowCommentingInsideARow()
 	{
 		var content = new[]

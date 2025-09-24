@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class EdgeCasesTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldFindSpecificationWithWrongCasing()
 	{
 		var content = new[] { "someflag=TrUE" };
@@ -17,7 +17,7 @@ public class EdgeCasesTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldFindToggleWithWrongCasing()
 	{
 		var content = new[] { "SOMEfLAg=true" };
@@ -26,7 +26,7 @@ public class EdgeCasesTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldFindUntrimmedToggle()
 	{
 		var content = new[] { "   someflag					  =true" };
@@ -35,7 +35,7 @@ public class EdgeCasesTest
 			.Should().Be.True();
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldFindUntrimmedSpecification()
 	{
 		var content = new[] { "someflag=         true		  " };

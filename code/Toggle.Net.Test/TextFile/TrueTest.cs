@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile;
 
 public class TrueTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldBeEnabled()
 	{
 		var content = new[] { "someflag=true" };

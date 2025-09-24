@@ -8,7 +8,7 @@ namespace Toggle.Net.Test.TextFile.WithParameters;
 
 public class IncorrectTextParametersTest
 {
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfParameterIsUsedAndOnlyOneDotExist()
 	{
 		var content = new[]
@@ -26,7 +26,7 @@ public class IncorrectTextParametersTest
 			.Should().Contain(string.Format(FileParser.MustHaveTwoDotsIfParameterUse, 2));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfParameterIsUsedAndMoreThanTwoDotsExist()
 	{
 		var content = new[]
@@ -44,7 +44,7 @@ public class IncorrectTextParametersTest
 			.Should().Contain(string.Format(FileParser.MustHaveTwoDotsIfParameterUse, 2));
 	}
 
-	[NUnit.Framework.Test]
+	[Test]
 	public void ShouldThrowIfParameterIsDeclaredMoreThanOnce()
 	{
 		var content = new[]

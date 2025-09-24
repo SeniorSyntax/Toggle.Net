@@ -9,7 +9,7 @@ namespace Toggle.Net.Test.Multiple;
 
 public class OverrideTest
 {
-    [NUnit.Framework.Test]
+    [Test]
     public void ShouldUseHighestPrio()
     {
         var contentLowPrio = new[]
@@ -26,7 +26,7 @@ public class OverrideTest
             .Should().Be.True();
     }
         
-    [NUnit.Framework.Test]
+    [Test]
     public void ShouldUseLowPrio()
     {
         var contentLowPrio = new[]
@@ -43,7 +43,7 @@ public class OverrideTest
             .Should().Be.True();
     }
         
-    [NUnit.Framework.Test]
+    [Test]
     public void ShouldUseDefaultValue()
     {
         var contentLowPrio = new[]
