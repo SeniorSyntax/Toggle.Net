@@ -8,22 +8,17 @@ public class CodeConfiguration : IFeatureProvider
 {
     private readonly IDictionary<string, Feature> _toggles;
 
-
     public CodeConfiguration(IDictionary<string, IToggleSpecification> toggleValues)
     {
         _toggles = toggleValues.ToDictionary(x => x.Key, x =>  new Feature(x.Value));
     }
     
-    public Feature TryGet(string toggleName)
-    {
-        if (_toggles.TryGetValue(toggleName, out var feature))
-        {
-            return feature;
-        }
-        return null;
-    }
-
     public void Init()
     {
     }
+    
+    public Feature TryGet(string toggleName) =>
+        _toggles.TryGetValue(toggleName, out var feature) ? 
+            feature : 
+            null;
 }
