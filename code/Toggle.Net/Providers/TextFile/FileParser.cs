@@ -56,7 +56,7 @@ public class FileParser(IFileReader fileReader, ISpecificationMappings specifica
 		return this;
 	}
 	
-	public Feature Get(string toggleName) =>
+	public Feature TryGet(string toggleName) =>
 		_featureSettings.TryGetValue(toggleName, out var feature) ?
 			feature :
 			null;

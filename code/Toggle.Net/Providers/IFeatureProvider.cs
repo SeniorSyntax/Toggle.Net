@@ -6,15 +6,15 @@
 public interface IFeatureProvider
 {
 	/// <summary>
+	/// Will be called when <see cref="IToggleChecker" /> is created /> 
+	/// </summary>
+	void Init();
+	
+	/// <summary>
 	/// Gets the feature from the repository.
 	/// If not present, this method must return <code>null</code>.
 	/// </summary>
 	/// <param name="toggleName"></param>
 	/// <returns><see cref="Feature"/></returns>
-	Feature Get(string toggleName);
-
-	/// <summary>
-	/// Will be called when <see cref="IToggleChecker" /> is created /> 
-	/// </summary>
-	void Init();
+	Feature TryGet(string toggleName);
 }

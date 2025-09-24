@@ -14,7 +14,7 @@ public class CodeConfiguration : IFeatureProvider
         _toggles = toggleValues.ToDictionary(x => x.Key, x =>  new Feature(x.Value));
     }
     
-    public Feature Get(string toggleName)
+    public Feature TryGet(string toggleName)
     {
         if (_toggles.TryGetValue(toggleName, out var feature))
         {

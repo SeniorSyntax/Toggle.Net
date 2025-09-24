@@ -27,7 +27,7 @@ internal class ToggleChecker : IToggleChecker
 		var currentUser = _userProvider.CurrentUser();
 		foreach (var featureProvider in _featureProviders)
 		{
-			var feature = featureProvider.Get(toggleName);
+			var feature = featureProvider.TryGet(toggleName);
 			if (feature != null)
 			{
 				return feature.IsEnabled(_toggleMode, currentUser);
