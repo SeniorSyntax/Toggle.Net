@@ -35,4 +35,16 @@ public class CodeConfigurationTest
             .SetToggleMode(toggleMode)
             .Create().IsEnabled("toggle");
     }
+    
+    [Test]
+    public void ShouldDefaultWithThrow()
+    {
+        var ex = Assert.Catch<NotExistingToggleException>(() =>
+        {
+            new ToggleConfiguration(new CodeConfiguration(new Dictionary<string, IToggleSpecification>()).ThrowIfMissing())
+                .Create()
+                .IsEnabled("theToggle");
+        });
+        ex.ToString().Should().Contain("theToggle");
+    }
 }
